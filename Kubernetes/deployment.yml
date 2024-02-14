@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Food-app
+  labels:
+    app: Food-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: Food-app
+  template:
+    metadata:
+      labels:
+        app: Food-app
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: Food-app
+        image: mebura1981/Food-app:latest
+        imagePullPolicy: "Always"
+        ports:
+        - containerPort: 3000
