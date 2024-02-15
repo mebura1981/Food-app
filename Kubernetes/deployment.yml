@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: Food-app
-        image: mebura1981/Food-app:latest
+        image: mebura/foodapp:latest
         imagePullPolicy: "Always"
         ports:
         - containerPort: 3000
