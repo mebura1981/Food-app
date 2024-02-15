@@ -126,7 +126,7 @@ eksctl version
 4--Setup Kubernetes using eksctl
 
 Refer--https://github.com/aws-samples/eks-workshop/issues/734
-eksctl create cluster --name Food-cluster \
+eksctl create cluster --name Foodapp-cluster \
 --region us-east-1 \
 --node-type t2.small \
 --nodes 3 \
@@ -160,8 +160,8 @@ pipeline{
          stage("Sonarqube Analysis "){
              steps{
                  withSonarQubeEnv('SonarQube-Server') {
-                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Food-CI \
-                     -Dsonar.projectKey=Food-CI '''
+                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Food-CICD \
+                     -Dsonar.projectKey=Food-CICD '''
                  }
              }
          }
@@ -186,16 +186,16 @@ pipeline{
              steps{
                  script{
                     withDockerRegistry(credentialsId: 'dockerhub', toolName: 'docker'){   
-                        sh "docker build -t Food-app ."
-                        sh "docker tag Food-app mebura1981/Food-app:latest "
-                        sh "docker push mebura1981/Food-app:latest "
+                        sh "docker build -t foodapp ."
+                        sh "docker tag foodapp mebura/foodapp:latest "
+                        sh "docker push mebura/foodapp:latest "
                      }
                  }
              }
          }
          stage("TRIVY"){
              steps{
-                 sh "trivy image mebura1981/Food-app:latest > trivyimage.txt" 
+                 sh "trivy image mebura/foodapp:latest > trivyimage.txt" 
              }
          }
           stage('Deploy to Kubernets'){
