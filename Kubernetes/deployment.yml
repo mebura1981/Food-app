@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: foodapp.
+  name: food-app.
   labels:
     app: Food-app
 spec:
@@ -16,7 +16,7 @@ spec:
     spec:
       terminationGracePeriodSeconds: 30
       containers:
-      - name: Food-app
+      - name: food-app
         image: mebura/foodapp:latest
         imagePullPolicy: "Always"
         ports:
